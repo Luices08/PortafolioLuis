@@ -24,7 +24,7 @@ module.exports = {
   port: parseInt(process.env.PORT, 10) || 4000,
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
 
-  mongoUri: process.env.MONGODB_URI,
+  mongoUri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/portfolio-ai',
 
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',

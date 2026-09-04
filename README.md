@@ -41,48 +41,61 @@ portfolio-ai/
 - Una API key de [Gemini](https://ai.google.dev/) (Google AI Studio)
 - Una cuenta de [Cloudinary](https://cloudinary.com/) (capa gratuita es suficiente) — solo necesaria para subir imágenes de proyectos/avatar
 
-## 2. Backend
+## 2. Ejecución Local (Rápida desde la raíz)
 
+Puedes correr todo el proyecto (backend + frontend) con un único comando desde la raíz:
+
+```bash
+# 1. Instalar dependencias de backend y frontend (si es la primera vez)
+npm run install:all
+
+# 2. (Opcional) Poblar la base de datos con datos de ejemplo
+npm run seed
+
+# 3. Iniciar backend (puerto 4000) y frontend (puerto 3000) simultáneamente
+npm run dev
+```
+
+El frontend estará disponible en `http://localhost:3000` y el backend en `http://localhost:4000`.
+
+### Scripts disponibles en la raíz:
+- `npm run dev`: Inicia backend y frontend en desarrollo con logs en vivo unificados.
+- `npm run dev:backend`: Inicia únicamente el backend.
+- `npm run dev:frontend`: Inicia únicamente el frontend.
+- `npm run seed`: Ejecuta la carga de datos iniciales en MongoDB.
+- `npm run build`: Compila el frontend para producción.
+- `npm run install:all`: Instala dependencias en ambas carpetas.
+
+---
+
+## 3. Ejecución por separado (Manual)
+
+### Backend
 ```bash
 cd backend
-cp .env.example .env
-```
-
-Completa `.env` con tus valores reales:
-
-```
-MONGODB_URI=mongodb+srv://usuario:password@cluster.mongodb.net/portfolio-ai
-JWT_SECRET=un-secreto-largo-y-aleatorio
-GEMINI_API_KEY=tu-api-key-de-gemini
-CLOUDINARY_CLOUD_NAME=...
-CLOUDINARY_API_KEY=...
-CLOUDINARY_API_SECRET=...
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=elige-una-contraseña-segura
-```
-
-Instala dependencias y **carga datos de ejemplo** (admin + perfil + 3 proyectos + habilidades + experiencia + educación) para tener la demo lista de inmediato:
-
-```bash
 npm install
-npm run seed
 npm run dev
 ```
-
 El backend queda en `http://localhost:4000`. Verifica con `curl http://localhost:4000/api/health`.
 
-## 3. Frontend
-
+### Frontend
 En otra terminal:
-
 ```bash
 cd frontend
-cp .env.example .env.local
 npm install
 npm run dev
 ```
+El sitio queda en `http://localhost:3000`. El panel admin está en `http://localhost:3000/admin`.
 
-El sitio queda en `http://localhost:3000`. El panel admin está en `http://localhost:3000/admin` — inicia sesión con el `ADMIN_USERNAME` / `ADMIN_PASSWORD` que definiste en `backend/.env` antes de correr el seed.
+---
+
+## 4. Despliegue en VPS (Docker Compose)
+
+En el servidor VPS puedes desplegar con Docker Compose sin tocar ninguna lógica:
+```bash
+docker-compose up -d --build
+```
+Esto levantará los contenedores de MongoDB, Backend (puerto 4000) y Frontend (puerto 3005).
 
 ## 4. Diseño del home (chat conversacional)
 

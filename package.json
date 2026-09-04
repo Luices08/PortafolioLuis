@@ -1,0 +1,18 @@
+{
+  "name": "portfolio-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portafolio conversacional con IA - Soporte local y Docker para VPS",
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "seed": "npm run seed --prefix backend",
+    "build": "npm run build --prefix frontend",
+    "start": "node scripts/start.js",
+    "install:all": "npm install --prefix backend && npm install --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
