@@ -9,7 +9,6 @@ import Hero from './Hero';
 import SearchBar from './SearchBar';
 import FloatingSuggestions from './FloatingSuggestions';
 import ConversationFeed from './ConversationFeed';
-import AdminLink from './AdminLink';
 import ProjectCard from '@/components/projects/ProjectCard';
 import Footer from '@/components/layout/Footer';
 
@@ -27,7 +26,6 @@ export default function HomeExperience({ profile, featuredProjects, categorySeed
   return (
     <main className="relative min-h-screen flex flex-col justify-between">
       <CosmicBackground />
-      <AdminLink />
 
       <div className="relative z-10 flex flex-1 flex-col justify-between">
         <div>

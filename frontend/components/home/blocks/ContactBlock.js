@@ -14,7 +14,9 @@ export default function ContactBlock({ block }) {
       <div className="flex flex-wrap items-center gap-3">
         {email && (
           <a
-            href={`mailto:${email}`}
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-violet-300/30 bg-violet-500/10 px-4 py-2 text-sm text-violet-100 hover:bg-violet-500/20"
           >
             <Mail size={15} /> {email}

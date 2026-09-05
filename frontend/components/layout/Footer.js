@@ -38,7 +38,9 @@ export default function Footer({ profile }) {
               {email && (
                 <li>
                   <a
-                    href={`mailto:${email}`}
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-violet-300"
                   >
                     <Mail size={14} className="text-violet-400" />
