@@ -4,6 +4,8 @@ services:
     image: mongo:8
     container_name: portfolio-mongodb
     restart: unless-stopped
+    ports:
+      - "27017:27017"
     volumes:
       - portfolio-mongodb-data:/data/db
 
@@ -14,6 +16,8 @@ services:
     restart: unless-stopped
     env_file:
       - ./backend/.env
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/portfolio-ai
     depends_on:
       - mongodb
     ports:
@@ -26,6 +30,8 @@ services:
         NEXT_PUBLIC_API_URL: http://localhost:4000/api
     container_name: portfolio-frontend
     restart: unless-stopped
+    environment:
+      - INTERNAL_API_URL=http://backend:4000/api
     depends_on:
       - backend
     ports:

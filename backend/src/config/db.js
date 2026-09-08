@@ -15,18 +15,21 @@ async function connectDB() {
     mongoose.set('strictQuery', true);
     mongoose.set('bufferCommands', false); // si no hay conexión, falla rápido en vez de colgar la petición
     await mongoose.connect(config.mongoUri, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 3000,
     });
     console.log('[db] Conectado a MongoDB');
   } catch (error) {
-    // Si la URI apuntaba a 127.0.0.1 o localhost y falló, reintentar con el host del servicio 'mongodb' en Docker (VPS)
-    if (config.mongoUri && (config.mongoUri.includes('127.0.0.1') || config.mongoUri.includes('localhost'))) {
+    // Si estamos dentro de Docker (VPS) y la URI apuntaba a 127.0.0.1 o localhost, reintentar con el host del servicio 'mongodb'
+    const fs = require('fs');
+    const isDocker = fs.existsSync('/.dockerenv') || Boolean(process.env.DOCKER_CONTAINER);
+
+    if (isDocker && config.mongoUri && (config.mongoUri.includes('127.0.0.1') || config.mongoUri.includes('localhost'))) {
       const dockerUri = config.mongoUri
         .replace('127.0.0.1', 'mongodb')
         .replace('localhost', 'mongodb');
       try {
         console.log(`[db] Reintentando conexión con host de Docker: ${dockerUri}...`);
-        await mongoose.connect(dockerUri, { serverSelectionTimeoutMS: 5000 });
+        await mongoose.connect(dockerUri, { serverSelectionTimeoutMS: 3000 });
         console.log('[db] Conectado a MongoDB (vía red Docker)');
         return;
       } catch (_) {
